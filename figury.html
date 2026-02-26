@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator pól figur</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f2f2f2;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px 0;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 5px;
+            font-weight: bold;
+            color: #222;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Kalkulator pól figur</h1>
+    <div class="container">
+
+        <!-- Trapez -->
+        <h2>Trapez</h2>
+        <input type="number" id="trapezA" placeholder="Długość podstawy a">
+        <input type="number" id="trapezB" placeholder="Długość podstawy b">
+        <input type="number" id="trapezH" placeholder="Wysokość h">
+        <button onclick="obliczTrapez()">Oblicz pole trapezu</button>
+        <div class="result" id="resultTrapez"></div>
+
+        <button onclick="obliczBokTrapezu()">Oblicz bok trapezu równoramiennego</button>
+        <div class="result" id="resultBokTrapezu"></div>
+
+        <!-- Trójkąt -->
+        <h2>Trójkąt</h2>
+        <input type="number" id="trojkatA" placeholder="Długość podstawy a">
+        <input type="number" id="trojkatH" placeholder="Wysokość h">
+        <button onclick="obliczTrojkat()">Oblicz pole trójkąta</button>
+        <div class="result" id="resultTrojkat"></div>
+
+        <!-- Prostokąt -->
+        <h2>Prostokąt</h2>
+        <input type="number" id="prostokatA" placeholder="Długość a">
+        <input type="number" id="prostokatB" placeholder="Długość b">
+        <button onclick="obliczProstokat()">Oblicz pole prostokąta</button>
+        <div class="result" id="resultProstokat"></div>
+
+        <!-- Okrąg -->
+        <h2>Okrąg</h2>
+        <input type="number" id="okragR" placeholder="Promień r">
+        <button onclick="obliczOkrag()">Oblicz pole okręgu</button>
+        <div class="result" id="resultOkrag"></div>
+
+    </div>
+
+    <script>
+        function obliczTrapez() {
+            const a = parseFloat(document.getElementById('trapezA').value);
+            const b = parseFloat(document.getElementById('trapezB').value);
+            const h = parseFloat(document.getElementById('trapezH').value);
+            if(a > 0 && b > 0 && h > 0){
+                const pole = ((a + b) * h) / 2;
+                document.getElementById('resultTrapez').innerText = `Pole trapezu: ${pole.toFixed(2)}`;
+            } else {
+                document.getElementById('resultTrapez').innerText = "Wprowadź poprawne wartości!";
+            }
+        }
+
+        function obliczBokTrapezu() {
+            const a = parseFloat(document.getElementById('trapezA').value);
+            const b = parseFloat(document.getElementById('trapezB').value);
+            const h = parseFloat(document.getElementById('trapezH').value);
+            if(a > 0 && b > 0 && h > 0){
+                if(b < a){
+                    document.getElementById('resultBokTrapezu').innerText = "Podstawa b musi być większa lub równa a!";
+                    return;
+                }
+                const c = Math.sqrt(Math.pow((b - a)/2, 2) + Math.pow(h, 2));
+                document.getElementById('resultBokTrapezu').innerText = `Bok trapezu równoramiennego: ${c.toFixed(2)}`;
+            } else {
+                document.getElementById('resultBokTrapezu').innerText = "Wprowadź poprawne wartości!";
+            }
+        }
+
+        function obliczTrojkat() {
+            const a = parseFloat(document.getElementById('trojkatA').value);
+            const h = parseFloat(document.getElementById('trojkatH').value);
+            if(a > 0 && h > 0){
+                const pole = (a * h) / 2;
+                document.getElementById('resultTrojkat').innerText = `Pole trójkąta: ${pole.toFixed(2)}`;
+            } else {
+                document.getElementById('resultTrojkat').innerText = "Wprowadź poprawne wartości!";
+            }
+        }
+
+        function obliczProstokat() {
+            const a = parseFloat(document.getElementById('prostokatA').value);
+            const b = parseFloat(document.getElementById('prostokatB').value);
+            if(a > 0 && b > 0){
+                const pole = a * b;
+                document.getElementById('resultProstokat').innerText = `Pole prostokąta: ${pole.toFixed(2)}`;
+            } else {
+                document.getElementById('resultProstokat').innerText = "Wprowadź poprawne wartości!";
+            }
+        }
+
+        function obliczOkrag() {
+            const r = parseFloat(document.getElementById('okragR').value);
+            if(r > 0){
+                const pole = Math.PI * r * r;
+                document.getElementById('resultOkrag').innerText = `Pole okręgu: ${pole.toFixed(2)}`;
+            } else {
+                document.getElementById('resultOkrag').innerText = "Wprowadź poprawny promień!";
+            }
+        }
+    </script>
+
+</body>
+</html>
